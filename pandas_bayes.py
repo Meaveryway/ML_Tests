@@ -82,3 +82,14 @@ features_train, features_test, labels_train, labels_test = train_test_split(sele
 clf.fit(features_train, labels_train)
 print "Score after features selection(", K, "-Best) =", clf.score(features_test, labels_test)
 print "Features RI and Na were practically useless. Features Mg and Ca aren't contributing much."
+
+from sklearn.ensemble import AdaBoostClassifier
+clf = AdaBoostClassifier(n_estimators = 10)
+features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size = 0.2, random_state = 42)
+clf.fit(features_train, labels_train)
+print "Score with AdaBoost without features selection = ", clf.score(features_test, labels_test)
+
+features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size = 0.2, random_state = 42)
+clf.fit(features_train, labels_train)
+print "Score with AdaBoost with features selection", K, "Best = ", clf.score(features_test, labels_test)
+print "We conclude that feature selections isn't usefull in AdaBoost because useless features are automatically scaled down."
